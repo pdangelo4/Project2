@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title> -->
+</head>
+<h1>Favorites</h1>
+
+ <p>
+   
+ </p>
+
+<body>
+        <h1>List of all my favorite stocks!</h1>
+        <h1>
+        <a id="headHome" href="./profile">Head Home!</a>
+      </h1>
+        <ul >
+          <% stocks.forEach(d => { %>
+            <form method="POST" action="/stock/<%= d.symbol %>?_method=DELETE">
+              
+           
+            <li >
+              <a id="favList" href="/stock/<%= d.symbol %>">
+                Date: <%= d.date.slice(0, 10) %>
+                <hr>
+                Ticker: <%= d.symbol %>
+                <hr>
+                Open: <%= d.open %>
+                <hr>
+                Close: <%= d.close %>
+                <hr>
+                Volume: <%= d.volume %>
+                <hr>
+              </a>
+            </li>
+            <hr>
+            <button type="submit">Remove Fav</button>
+          </form>
+          <% }) %>
+        </ul>
+</body>
+</html>

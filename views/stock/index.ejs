@@ -1,0 +1,26 @@
+<div class="container">
+    <h1 class="text-center">Stock</h1>
+    <p class="text-center">
+      <a href="/stock">Favorites</a>
+    </p>
+  
+   
+      <div class="well">
+     
+        <form method="POST" action="/stock">
+          <input hidden type="text" name="symbol" value="<%=ticker %>">
+          <input hidden type="text" name="date" value="<%=date %>">
+          <input hidden type="text" name="open" value="<%=open %>">
+          <input hidden type="text" name="close" value="<%=close %>">
+          <input hidden type="text" name="volume" value="<%=volume %>">
+          <button class="btn btn-primary" type="submit">Add to Favorite stock</button>
+        
+        <p><%=ticker %> </p>
+        <p><%=date %> </p>
+        <p><%=open %> </p>
+        <p><%=close %></p>
+        <p><%=volume %></p>
+      </form>
+      </div>
+     
+  </div>
