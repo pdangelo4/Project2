@@ -52,6 +52,16 @@ router.post('/', function(req, res) {
         where: {userId: req.user.id}
     })
     .then(stocks => {
+      // var x = [];
+      // axios.get('http://localhost:3000/search')
+      // .then(function (apiResponse) {
+      //   x = apiResponse.datasets
+      //   console.log('apiResponseeeee', apiResponse)
+      // })
+      // .catch(err => {
+      //   console.log('errrrr', err)
+      // })
+      // console.log('x array', x)
         res.render('stock/show', { stocks })
     })
     .catch(err => {

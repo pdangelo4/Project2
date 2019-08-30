@@ -118,7 +118,7 @@ router.post('/', function (req, res) {
 // });
 
 router.get('/', function (req, res) {
-    db.stock.findAll({ where: { userId: 1 } })
+    db.stock.findAll({ where: { userId: req.user.id } })
 
     .then(function (e) {
         sym = e.symbol
@@ -181,16 +181,65 @@ router.get('/', function (req, res) {
 
 
 
+        //   Object.keys(results).forEach(k => { 
+        //       console.log('FAVORITE:', k)
+        //       console.log(results[k].data['Meta Data']['2. Symbol'])
+        //       console.log(results[k].data['Time Series (Daily)'][today]['4. close'])
+        //       console.log(results[k].data['Time Series (Daily)'][t7]['4. close'])
+        //       console.log(results[k].data['Time Series (Daily)'][t14]['4. close'])
+        //       console.log(results[k].data['Time Series (Daily)'][t21]['4. close'])
+        //       console.log(results[k].data['Time Series (Daily)'][t28]['4. close'])
+        //   })
+        var obj = {};
+     Object.keys(results).forEach(k => { 
+         var ticker = results[k].data['Meta Data']['2. Symbol']
+         var timeSeriesData = results[k].data['Time Series (Daily)']
+         var closePriceToday = timeSeriesData[today]['4. close']
+         var closePriceWeekAgo = timeSeriesData[t7]['4. close']
+         var closePrice2WeeksAgo = timeSeriesData[t14]['4. close']
+         var closePrice3WeeksAgo = timeSeriesData[t21]['4. close']
+         var closePrice4WeeksAgo = timeSeriesData[t28]['4. close']
+        //  console.log(ticker)
+        //  console.log(closePriceToday)
+        //  console.log(closePriceWeekAgo)
+        //  console.log(closePrice2WeeksAgo)
+        //  console.log(closePrice3WeeksAgo)
+        //  console.log(closePrice4WeeksAgo)
+        
+        obj[ticker] = [closePriceToday, closePriceWeekAgo, closePrice2WeeksAgo, closePrice3WeeksAgo, closePrice4WeeksAgo]
+       
+        })
 
-          Object.keys(results).forEach(k => { 
-              console.log('FAVORITE:', k)
-              console.log(results[k].data['Meta Data']['2. Symbol'])
-              console.log(results[k].data['Time Series (Daily)'][today]['4. close'])
-              console.log(results[k].data['Time Series (Daily)'][t7]['4. close'])
-              console.log(results[k].data['Time Series (Daily)'][t14]['4. close'])
-              console.log(results[k].data['Time Series (Daily)'][t21]['4. close'])
-              console.log(results[k].data['Time Series (Daily)'][t28]['4. close'])
-          })
+        // var keys = Object.keys(data1)
+        // console.log('dataaaaaa', data1)
+        // console.log('1 dataaa', keys[0])
+        console.log('obj', obj)
+        const colors = ['rgba(255, 99, 132, 0.35)',
+        'rgba(54, 162, 235, 0.35)',
+        'rgba(255, 206, 86, 0.35)',
+        'rgba(75, 192, 192, 0.35)',
+        'rgba(153, 102, 255, 0.35)']
+        const borders = ['rgba(255, 99, 132, 1)',
+        'rgba(54, 162, 235, 1)',
+        'rgba(255, 206, 86, 1)',
+        'rgba(75, 192, 192, 1)',
+        'rgba(153, 102, 255, 1)']
+
+        datasets = Object.keys(obj).map((k, i) => {
+            return {
+                label: k,
+                data: obj[k],
+                backgroundColor: [
+                    colors[i % 5]
+                ],
+                borderColor: [
+                    borders[i % 5]
+                ],
+                borderWidth: 1
+            }
+        })
+        console.log('datasets', datasets);
+        res.json(datasets);
     });
 })
 
