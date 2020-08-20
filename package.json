@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "bcrypt": "^3.0.6",
+    "bcrypt": "^5.0.0",
     "chartjs": "^0.3.24",
     "connect-flash": "^0.1.1",
     "dotenv": "^8.1.0",
